@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Planning & Layout"
+  short_description: "Plan or audit Go repo layout"
+  default_prompt: "Use $golang-planning-layout to plan or audit an idiomatic Go module and repository layout."

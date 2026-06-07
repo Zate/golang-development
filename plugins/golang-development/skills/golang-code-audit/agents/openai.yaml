@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Code Audit"
+  short_description: "Audit Go code against idiomatic guidance"
+  default_prompt: "Use $golang-code-audit to review this Go codebase for idiom, architecture, testing, and quality gaps."

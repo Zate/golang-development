@@ -1,0 +1,20 @@
+{
+  "name": "golang-development-marketplace",
+  "interface": {
+    "displayName": "Golang Development"
+  },
+  "plugins": [
+    {
+      "name": "golang-development",
+      "source": {
+        "source": "local",
+        "path": "./plugins/golang-development"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    }
+  ]
+}

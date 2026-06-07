@@ -1,0 +1,20 @@
+{
+  "name": "golang-development-marketplace",
+  "owner": {
+    "name": "Golang Development Contributors"
+  },
+  "description": "Marketplace entry for the Golang Development skill bundle.",
+  "version": "0.1.0",
+  "plugins": [
+    {
+      "name": "golang-development",
+      "displayName": "Golang Development",
+      "version": "0.1.0",
+      "description": "Focused Go development skills for building and auditing Go projects across planning, architecture, idioms, testing, linting, release, and deployment.",
+      "source": "./plugins/golang-development",
+      "category": "Development",
+      "tags": ["go", "golang", "backend", "testing", "linting", "architecture"],
+      "strict": false
+    }
+  ]
+}

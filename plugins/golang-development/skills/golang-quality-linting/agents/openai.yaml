@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Quality & Linting"
+  short_description: "Verify or audit Go quality"
+  default_prompt: "Use $golang-quality-linting to verify or audit Go formatting, vetting, linting, and review quality."

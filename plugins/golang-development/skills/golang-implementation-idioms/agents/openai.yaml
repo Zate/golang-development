@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Implementation Idioms"
+  short_description: "Write or audit idiomatic Go"
+  default_prompt: "Use $golang-implementation-idioms to implement or audit idiomatic Go code in this repo."

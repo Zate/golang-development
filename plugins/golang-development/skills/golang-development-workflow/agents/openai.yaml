@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Development Workflow"
+  short_description: "Route Go work into build or audit mode"
+  default_prompt: "Use $golang-development-workflow to choose the right Go build or audit skills for this task."

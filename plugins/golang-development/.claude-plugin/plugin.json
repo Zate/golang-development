@@ -1,0 +1,12 @@
+{
+  "name": "golang-development",
+  "displayName": "Golang Development",
+  "version": "0.1.0",
+  "description": "Focused Go development skills for building and auditing Go projects across planning, architecture, idioms, testing, linting, release, and deployment.",
+  "author": {
+    "name": "Golang Development Contributors"
+  },
+  "license": "MIT",
+  "keywords": ["go", "golang", "backend", "testing", "linting", "architecture"],
+  "skills": "./skills/"
+}

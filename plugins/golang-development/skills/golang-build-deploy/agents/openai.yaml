@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Build & Deploy"
+  short_description: "Build or audit Go releases"
+  default_prompt: "Use $golang-build-deploy to prepare or audit a Go app for build, release, or deployment."

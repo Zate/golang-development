@@ -1,0 +1,35 @@
+{
+  "name": "golang-development",
+  "version": "0.1.0",
+  "description": "Focused Go development skills for building and auditing Go projects across planning, architecture, idioms, testing, linting, release, and deployment.",
+  "author": {
+    "name": "Golang Development Contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "go",
+    "golang",
+    "backend",
+    "testing",
+    "linting",
+    "architecture"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Golang Development",
+    "shortDescription": "Idiomatic Go skills for agents",
+    "longDescription": "A compact skill pack for agents building or auditing Go applications, organized by workflow routing, code audits, planning, architecture, implementation idioms, testing, quality, and build/deploy readiness.",
+    "developerName": "Golang Development Contributors",
+    "category": "Development",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use the Golang Development workflow to build this Go change idiomatically.",
+      "Audit this Go repo against idiomatic architecture, testing, and quality guidance.",
+      "Review this Go diff for correctness, maintainability, and release readiness."
+    ],
+    "brandColor": "#00ADD8"
+  }
+}
