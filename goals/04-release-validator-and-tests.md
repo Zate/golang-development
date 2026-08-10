@@ -1,6 +1,6 @@
 # G04 - Add A Repository Release Validator
 
-Status: planned
+Status: complete
 
 ## Objective
 
@@ -60,3 +60,8 @@ Add one repository-owned validation command that checks the complete cross-host 
 - `python -m unittest discover -s tests`
 - `claude plugin validate . --strict`
 - `claude plugin validate ./plugins/golang-development --strict`
+
+## Completion notes
+
+- Verification: The release validator passed. Six unit tests passed, including ten required invalid-package cases. Both Claude Code strict validators passed.
+- Follow-ups: G05 will run these checks and the official Agent Skills validator in CI.
