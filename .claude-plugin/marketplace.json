@@ -12,9 +12,12 @@
       "version": "0.1.0",
       "description": "Focused Go development skills for building and auditing Go projects across planning, architecture, idioms, testing, linting, release, and deployment.",
       "source": "./plugins/golang-development",
+      "homepage": "https://github.com/Zate/golang-development#readme",
+      "repository": "https://github.com/Zate/golang-development",
+      "license": "MIT",
       "category": "Development",
       "tags": ["go", "golang", "backend", "testing", "linting", "architecture"],
-      "strict": false
+      "strict": true
     }
   ]
 }

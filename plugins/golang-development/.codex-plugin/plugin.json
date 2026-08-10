@@ -5,6 +5,8 @@
   "author": {
     "name": "Golang Development Contributors"
   },
+  "homepage": "https://github.com/Zate/golang-development#readme",
+  "repository": "https://github.com/Zate/golang-development",
   "license": "MIT",
   "keywords": [
     "go",
@@ -21,6 +23,7 @@
     "longDescription": "A compact skill pack for agents building or auditing Go applications, organized by workflow routing, code audits, planning, architecture, implementation idioms, testing, quality, and build/deploy readiness.",
     "developerName": "Golang Development Contributors",
     "category": "Development",
+    "websiteURL": "https://github.com/Zate/golang-development",
     "capabilities": [
       "Read",
       "Write"

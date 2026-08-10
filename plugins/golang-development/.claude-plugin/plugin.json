@@ -6,6 +6,8 @@
   "author": {
     "name": "Golang Development Contributors"
   },
+  "homepage": "https://github.com/Zate/golang-development#readme",
+  "repository": "https://github.com/Zate/golang-development",
   "license": "MIT",
   "keywords": ["go", "golang", "backend", "testing", "linting", "architecture"],
   "skills": "./skills/"
