@@ -1,6 +1,6 @@
 # G03 - Add A Safe Generic Skill Installer
 
-Status: planned
+Status: complete
 
 ## Objective
 
@@ -61,3 +61,8 @@ Provide a safe way to install all eight skills for generic agents that scan user
 - Run the installer test suite with temporary targets.
 - Run dry-run for a user-level target and a project-level target.
 - Confirm that no real `~/.agents/skills/` files changed during verification.
+
+## Completion notes
+
+- Verification: Four unit tests passed for default targeting, dry-run, complete copying, and collision safety. The CLI dry-run reported exactly eight skills and did not create its target.
+- Follow-ups: G06 will document Windows and POSIX command forms.
