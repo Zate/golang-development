@@ -1,6 +1,6 @@
 # G06 - Document All Installation Paths
 
-Status: planned
+Status: complete
 
 ## Objective
 
@@ -64,3 +64,8 @@ Give users exact, current commands for GitHub and local installation in Codex, C
 - `python scripts/validate_release.py`
 - `claude plugin validate . --strict`
 - `claude plugin validate ./plugins/golang-development --strict`
+
+## Completion notes
+
+- Verification: Release validation, six tests, generic installer dry-run, both Claude Code strict validators, required README text, and all documented repository paths passed.
+- Follow-ups: G07 and G08 will prove the local and GitHub host installation commands in isolated configurations.
