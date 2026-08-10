@@ -1,6 +1,7 @@
 ---
 name: golang-build-deploy
 description: Build, package, release, containerize, deploy, or audit Go applications and CLIs. Use for Golang build flags, module release checks, cross-compilation, Dockerfiles, CI/CD, version metadata, graceful shutdown, runtime configuration, security updates, production deployment plans, or reviewing existing Go release/deployment readiness.
+license: MIT
 ---
 
 # Go Build And Deploy

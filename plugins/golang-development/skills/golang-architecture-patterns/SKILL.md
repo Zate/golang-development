@@ -1,6 +1,7 @@
 ---
 name: golang-architecture-patterns
 description: Design or audit Go application architecture, package boundaries, dependency direction, interfaces, adapters, repositories, services, HTTP handlers, concurrency boundaries, and maintainable design patterns. Use for Golang service design, refactors, domain layering, dependency injection, ports/adapters, repository patterns, functional options, API design, concurrency architecture, or reviewing existing Go architecture for coupling and maintainability risks.
+license: MIT
 ---
 
 # Go Architecture Patterns

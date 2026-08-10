@@ -68,7 +68,7 @@ The release validator and tests do not exist before G04. The CI workflow does no
 ## Queue
 
 - [x] [G01 - Normalize Dual Marketplace Manifests](01-normalize-dual-marketplace-manifests.md)
-- [ ] [G02 - Make Skill Metadata Portable](02-portable-agent-skill-metadata.md)
+- [x] [G02 - Make Skill Metadata Portable](02-portable-agent-skill-metadata.md)
 - [ ] [G03 - Add A Safe Generic Skill Installer](03-generic-agent-skill-installer.md)
 - [ ] [G04 - Add A Repository Release Validator](04-release-validator-and-tests.md)
 - [ ] [G05 - Add Continuous Integration Gates](05-continuous-integration-gates.md)

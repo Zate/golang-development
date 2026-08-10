@@ -1,6 +1,7 @@
 ---
 name: golang-quality-linting
 description: Verify, improve, or audit Go code quality with gofmt, goimports, go vet, static analysis, golangci-lint, security checks, code review, lint configuration, and completion verification. Use when reviewing Golang changes, fixing linter failures, setting up golangci-lint, deciding quality gates, auditing existing quality practices, or checking whether Go code is ready to ship.
+license: MIT
 ---
 
 # Go Quality And Linting

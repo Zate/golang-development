@@ -1,6 +1,7 @@
 ---
 name: golang-code-audit
 description: Audit existing Go and Golang codebases, pull requests, diffs, packages, services, CLIs, tests, build pipelines, and repository layouts against idiomatic Go development guidance. Use when reviewing, auditing, assessing, evaluating, inspecting, checking best-practice compliance, finding violations, identifying risks, or producing findings for already-built Go code.
+license: MIT
 ---
 
 # Go Code Audit

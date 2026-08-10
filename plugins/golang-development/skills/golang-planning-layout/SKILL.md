@@ -1,6 +1,7 @@
 ---
 name: golang-planning-layout
 description: Plan or audit idiomatic Go modules, repository layout, package boundaries, command structure, migration strategy, and implementation plans. Use when working on Go or Golang projects before adding packages, moving code, choosing cmd/internal/pkg layout, splitting modules, introducing workspaces, writing a multi-step implementation plan, or reviewing an existing repo for layout and package-boundary problems.
+license: MIT
 ---
 
 # Go Planning And Layout

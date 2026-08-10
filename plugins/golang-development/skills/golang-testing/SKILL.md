@@ -1,6 +1,7 @@
 ---
 name: golang-testing
 description: Add, repair, design, or audit Go tests using the standard testing package, table-driven tests, subtests, examples, benchmarks, fuzz tests, race checks, coverage, fakes, and integration-test boundaries. Use when testing Golang code, creating test plans, debugging failing go test output, deciding unit vs integration coverage, reviewing test quality, finding missing coverage, or assessing whether existing tests prove behavior.
+license: MIT
 ---
 
 # Go Testing

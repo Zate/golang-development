@@ -1,6 +1,6 @@
 # G02 - Make Skill Metadata Portable
 
-Status: planned
+Status: complete
 
 ## Objective
 
@@ -56,3 +56,8 @@ Make every bundled skill a complete, portable Agent Skills package when it is in
 - `claude plugin validate ./plugins/golang-development --strict`
 - Run direct checks for name, directory match, description length, license, line count, and references on all eight skills.
 - Run `skills-ref validate <skill-directory>` for each skill when `skills-ref` is available.
+
+## Completion notes
+
+- Verification: Direct checks passed for all eight names, descriptions, licenses, line counts, and references. Claude Code strict plugin validation passed.
+- Follow-ups: The official `skills-ref` command is not installed locally. G05 will add a pinned CI gate for it.

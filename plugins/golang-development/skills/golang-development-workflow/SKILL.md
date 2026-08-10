@@ -1,6 +1,7 @@
 ---
 name: golang-development-workflow
 description: Route Go and Golang development work into the right build or audit workflow. Use for broad Go tasks such as building features, implementing changes, refactoring, planning, reviewing, auditing, assessing an existing codebase, checking against Go best practices, or deciding which Golang Development skills apply.
+license: MIT
 ---
 
 # Go Development Workflow

@@ -1,6 +1,7 @@
 ---
 name: golang-implementation-idioms
 description: Implement or audit idiomatic Go code using effective naming, errors, context, interfaces, generics, nil handling, slices/maps, documentation comments, and standard library conventions. Use when writing, refactoring, cleaning, or reviewing Golang code; reducing nesting; improving API ergonomics; checking idiomatic implementation style; or finding non-idiomatic Go in existing code.
+license: MIT
 ---
 
 # Go Implementation Idioms
