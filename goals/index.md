@@ -73,5 +73,5 @@ The release validator and tests do not exist before G04. The CI workflow does no
 - [x] [G04 - Add A Repository Release Validator](04-release-validator-and-tests.md)
 - [x] [G05 - Add Continuous Integration Gates](05-continuous-integration-gates.md)
 - [x] [G06 - Document All Installation Paths](06-installation-and-usage-documentation.md)
-- [ ] [G07 - Verify Local Marketplace Installation](07-isolated-local-marketplace-smoke-tests.md)
+- [x] [G07 - Verify Local Marketplace Installation](07-isolated-local-marketplace-smoke-tests.md)
 - [ ] [G08 - Verify GitHub Marketplace Installation](08-github-marketplace-smoke-tests.md)

@@ -1,6 +1,6 @@
 # G07 - Verify Local Marketplace Installation
 
-Status: planned
+Status: complete
 
 ## Objective
 
@@ -59,3 +59,8 @@ Prove that a clean local clone can act as a marketplace and install the plugin i
 - Run the documented isolated Codex local-marketplace test.
 - Run the documented isolated Claude Code local-marketplace test.
 - Compare user configuration state before and after the tests.
+
+## Completion notes
+
+- Verification: Isolated Codex and Claude Code local marketplace installation passed at version 0.1.0. Both packages exposed the same eight skills. Normal profile signature changes were zero.
+- Evidence: `docs/validation.md` records host versions, isolation variables, commands, skill inventory, and results.
