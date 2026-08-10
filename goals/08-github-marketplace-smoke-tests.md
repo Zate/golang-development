@@ -1,6 +1,6 @@
 # G08 - Verify GitHub Marketplace Installation
 
-Status: planned
+Status: complete
 
 ## Objective
 
@@ -61,3 +61,13 @@ Prove that Codex and Claude Code can add the published GitHub repository as a ma
 - Run the documented isolated Codex GitHub-marketplace test.
 - Run the documented isolated Claude Code GitHub-marketplace test.
 - Confirm both host inventories contain the expected eight skills.
+
+## Completion notes
+
+- The canonical GitHub source is `Zate/golang-development`, with `main` as its default branch.
+- The user authorized publication of the completed commits.
+- Codex and Claude Code added the same GitHub source and installed `golang-development@golang-development-marketplace` in isolated host profiles.
+- Both hosts loaded version `0.1.0`, the same eight skills, and Git commit `15b90cbf047cb4a2855e1124845a1c23ef262793`.
+- Normal user host profile changes were zero.
+- The README GitHub commands match the successful commands.
+- GitHub Actions run `31356286623` passed all release, unit, installer, and Agent Skills validation steps on Windows and Ubuntu.

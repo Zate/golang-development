@@ -60,4 +60,21 @@ The eight registered skills were:
 
 ## GitHub marketplace smoke test
 
-G08 will add the published GitHub source, tested commit, commands, and results here.
+### Current published source
+
+- Date: 2026-08-10
+- Source: `Zate/golang-development`
+- Default branch: `main`
+- Tested commit: `15b90cbf047cb4a2855e1124845a1c23ef262793`
+- Plugin version: `0.1.0`
+- Codex CLI: `0.146.0`
+- Claude Code: `2.1.225`
+- Codex skills: `8`
+- Claude Code skills: `8`
+- Normal host profile changes: `0`
+
+The test used new temporary `CODEX_HOME`, `CLAUDE_CONFIG_DIR`, and `CLAUDE_CODE_PLUGIN_CACHE_DIR` directories. Both hosts added the GitHub repository as a marketplace, installed `golang-development@golang-development-marketplace`, and loaded the same version and skill inventory from the same commit.
+
+### Hosted validation
+
+[GitHub Actions run 31356286623](https://github.com/Zate/golang-development/actions/runs/31356286623) passed on Windows and Ubuntu for the tested commit. Both jobs passed release validation, six unit tests, the generic installer dry-run, installation of the pinned official Agent Skills validator, and validation of all eight skills.
