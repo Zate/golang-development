@@ -1,6 +1,6 @@
 # G05 - Add Continuous Integration Gates
 
-Status: planned
+Status: complete
 
 ## Objective
 
@@ -59,3 +59,8 @@ Run portable skill, manifest, installer, and release checks automatically for ev
 - `python -m unittest discover -s tests`
 - Run each documented CI command locally where the current operating system supports it.
 - Inspect the first GitHub Actions run when remote access is available.
+
+## Completion notes
+
+- Verification: The workflow YAML parsed with its validate job. The release validator and six tests passed. The pinned skills-ref commit validated all eight skills in an isolated temporary environment.
+- Follow-ups: The first hosted Windows and Ubuntu run will occur after the commit reaches GitHub. No push was made in this goal.
