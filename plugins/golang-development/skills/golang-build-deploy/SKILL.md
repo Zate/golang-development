@@ -1,29 +1,21 @@
 ---
 name: golang-build-deploy
-description: Build, package, release, containerize, deploy, or audit Go applications and CLIs. Use for Golang build flags, module release checks, cross-compilation, Dockerfiles, CI/CD, version metadata, graceful shutdown, runtime configuration, security updates, production deployment plans, or reviewing existing Go release/deployment readiness.
+description: Plans or verifies Go builds, containers, releases, and service runtime readiness. Use for build flags, supported toolchains, packaging, CI release gates, or deployment preparation; preserve repository wrappers.
 license: MIT
 ---
 
 # Go Build And Deploy
 
-## Build Workflow
+Follow the user's scope and repository instructions. Release plans and reviews are read-only unless changes are requested. Preparing a release does not authorize publishing, pushing, or deploying it.
 
-1. Inspect existing build/release surfaces first: `Makefile`, CI workflows, Dockerfiles, `goreleaser`, task files, `go.mod`, and deployment manifests.
-2. Build with the standard go tool unless the repo has a stronger wrapper. Prefer reproducible commands over hidden local state.
-3. Keep build metadata explicit: version, commit, date, dirty state, target OS/arch, and module dependency info where useful.
-4. For services, verify graceful shutdown, context propagation, health/readiness checks, config loading, logging, and metrics/tracing hooks already used by the repo.
-5. For containers, prefer small multi-stage builds, non-root runtime users, CA certificates/timezone needs, and no source/toolchain in final image.
-6. Before release/deploy, run tests, vet/lint, vulnerability checks when available, and a local smoke test of the built binary.
+## Workflow
 
-## Audit Workflow
+1. Inspect the relevant build/release wrappers, toolchain requirements, CI, and runtime surfaces. Preserve working dependency and packaging conventions.
+2. Select a supported Go toolchain compatible with the project and pin repeatable build/tool versions. Review intentional module changes rather than automatically running `go mod tidy`.
+3. Build with existing commands. Keep useful version/commit/target metadata explicit; for containers prefer multi-stage builds and a non-root runtime compatible with CGO and OS requirements.
+4. For service readiness, verify applicable config validation, timeouts, shutdown, health checks, and existing observability. Report missing features only when their absence creates a concrete deployment risk.
+5. Before an authorized release, run relevant quality/security checks, build targets, and smoke tests. State what was executed and what remains unverified; keep release blockers separate from optional hardening.
 
-1. Inspect build scripts, CI, Dockerfiles, release config, runtime config, service startup/shutdown, and deployment manifests before judging.
-2. Check reproducibility, version metadata, module hygiene, vulnerability scanning, container runtime user, image contents, and smoke-test coverage.
-3. For services, flag missing graceful shutdown, HTTP timeouts, health/readiness checks, config validation, logging, metrics/tracing, or secret leakage.
-4. Report release blockers separately from hardening recommendations.
-5. Pair with `golang-code-audit` when producing a full findings-first review.
+## References
 
-## Load References
-
-- Read `references/build-release-deploy.md` for command patterns, Dockerfile shape, CI gates, and deployment checklist.
-- Pair with the companion `golang-quality-linting` skill for verification and the companion `golang-testing` skill for release test strategy.
+Read [build-release-deploy.md](references/build-release-deploy.md) for supported-version selection, command examples, containers, or release checks. Load quality/linting or testing companions only when gate selection or test coverage needs clarification.

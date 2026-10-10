@@ -1,6 +1,6 @@
 # Go Repo Layout Reference
 
-Sources distilled: Effective Go, Twelve Go Best Practices, Go Proverbs, Go module layout docs, Go package-name blog, and `cmd/go` docs.
+Use these as design defaults; existing repository policy and the user's scope take precedence.
 
 ## Layout Rules
 
@@ -47,8 +47,29 @@ internal/config/
 - Make packages independently testable; avoid hidden globals and heavy `init`.
 - Prefer small migration steps: create package, move code, preserve public API, update imports, run tests.
 
+## File Size And Cohesion
+
+Review handwritten production Go files above 800 physical lines as a navigation
+and cohesion advisory, not a failing gate or proof of complexity. Exclude tests
+and files with the standard `// Code generated ... DO NOT EDIT.` marker from
+this initial inventory. Review test structure separately when fixtures or cases
+become difficult to navigate. Count physical lines including blanks/comments;
+do not confuse this with function complexity or the linter's function-line count.
+
+A long cohesive declaration table can stay intact. When navigation is the
+problem, group related behavior into focused files in the same package; avoid
+many tiny files and a one-type-per-file rule. Keep helpers near their primary
+responsibility and preserve build tags, generated-file boundaries, and APIs.
+
+Create a package only when it has a distinct responsibility, clear data/behavior
+ownership, a useful narrow API, and a sensible acyclic dependency direction.
+Keep tightly coupled unexported types together when separating them would expose
+implementation details or force callers to import both packages to use either.
+Avoid speculative `util`, `common`, or layering packages.
+
 ## Sources
 
 - https://go.dev/doc/modules/layout
 - https://go.dev/blog/package-names
 - https://pkg.go.dev/cmd/go
+- https://google.github.io/styleguide/go/best-practices#package-size

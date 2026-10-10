@@ -4,12 +4,12 @@
     "name": "Golang Development Contributors"
   },
   "description": "Marketplace entry for the Golang Development skill bundle.",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "plugins": [
     {
       "name": "golang-development",
       "displayName": "Golang Development",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "description": "Focused Go development skills for building and auditing Go projects across planning, architecture, idioms, testing, linting, release, and deployment.",
       "source": "./plugins/golang-development",
       "homepage": "https://github.com/Zate/golang-development#readme",

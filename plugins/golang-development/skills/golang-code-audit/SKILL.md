@@ -1,30 +1,21 @@
 ---
 name: golang-code-audit
-description: Audit existing Go and Golang codebases, pull requests, diffs, packages, services, CLIs, tests, build pipelines, and repository layouts against idiomatic Go development guidance. Use when reviewing, auditing, assessing, evaluating, inspecting, checking best-practice compliance, finding violations, identifying risks, or producing findings for already-built Go code.
+description: Reviews Go repositories or diffs for correctness, security, concurrency, API regressions, and maintainability. Use for comprehensive code audits; use specialist skills for focused lint, test, or architecture reviews.
 license: MIT
 ---
 
 # Go Code Audit
 
+Follow the user's scope and repository instructions. Keep the audit read-only unless fixes are requested, including formatting and generated files.
+
 ## Workflow
 
-1. Determine the audit scope: whole repo, diff, package, command, service, tests, CI/build, or release path.
-2. Inspect `go.mod`, `go.work`, package layout, relevant source files, tests, build scripts, and configured quality commands before judging.
-3. Select companion skills by risk area:
-   - `golang-planning-layout` for module layout, package boundaries, command structure, and naming.
-   - `golang-architecture-patterns` for dependency direction, interfaces, services, adapters, repositories, APIs, and concurrency boundaries.
-   - `golang-implementation-idioms` for naming, errors, context, nil handling, generics, comments, and standard library usage.
-   - `golang-testing` for coverage gaps, test boundaries, fakes, determinism, benchmarks, fuzzing, and race checks.
-   - `golang-quality-linting` for format, vet, static analysis, security, linter configuration, and completion gates.
-   - `golang-build-deploy` for release, packaging, Docker, CI, runtime config, graceful shutdown, and deployment readiness.
-4. Run or request the narrowest verification commands that are safe and relevant. If a command cannot be run, state that as residual risk.
-5. Produce findings first, ordered by severity, with file and line references when possible.
-6. Separate correctness, security, race/leak, API breakage, test gaps, maintainability, and style findings.
-7. Do not include broad rewrites, unrelated refactors, or stylistic preferences unless they materially affect maintainability or match the requested audit scope.
+1. Establish the target: repository, diff, package, service, or release path. Inspect relevant source, callers, tests, and configured checks; a small diff does not require a full repository map.
+2. Trace actual behavior and ownership. Prioritize correctness, security, races/leaks, API compatibility, and missing behavioral coverage before maintainability or style.
+3. Load a specialist only to resolve a concrete question: planning/layout for cohesion, architecture for dependency or concurrency boundaries, idioms for error/API behavior, testing for verification gaps, quality/linting for configured gates or missing golangci-lint recommendations, build/deploy for release readiness. Do not route back through `golang-development-workflow`.
+4. Use relevant read-only checks when permitted. Inspect wrappers before running them; do not run installers, formatters that write, or unrelated checks during a read-only review.
+5. Distinguish verified defects from hypotheses, advisory size signals, justified exceptions, and checks that could not be run. A convention difference alone is not a defect.
 
-## Output Shape
+## Output
 
-- Start with findings. If none, say no issues found.
-- For each finding include severity, location, concrete risk, and the smallest useful remediation.
-- Add open questions or assumptions only after findings.
-- End with verification performed and remaining test or inspection gaps.
+Lead with findings ordered by severity. Each finding needs a location, concrete consequence, evidence, and the smallest useful remediation. If none are found, state the inspected scope and verification limits. End with relevant checks performed, unrun checks, and open assumptions; do not claim whole-project correctness from partial evidence.

@@ -1,31 +1,24 @@
 ---
 name: golang-development-workflow
-description: Route Go and Golang development work into the right build or audit workflow. Use for broad Go tasks such as building features, implementing changes, refactoring, planning, reviewing, auditing, assessing an existing codebase, checking against Go best practices, or deciding which Golang Development skills apply.
+description: Routes broad, multi-step Go development requests across planning, implementation, testing, quality, and release. Use when several stages need coordination; use a specialist directly for a narrow task.
 license: MIT
 ---
 
 # Go Development Workflow
 
-## Workflow
+Follow the user's scope and repository instructions. Plans and audits are read-only unless changes are requested; guidance does not authorize installation, publishing, or deployment.
 
-1. Inspect the user's wording and current repo context before choosing a mode.
-2. Use build mode when the user asks to create, implement, modify, refactor, fix, migrate, configure, test, release, or deploy Go code.
-3. Use audit mode when the user asks to review, audit, assess, evaluate, inspect, check, compare against guidance, find violations, identify gaps, or report risks in existing Go code.
-4. For mixed requests, audit first when risk is unclear, then implement only the fixes the user requested.
-5. Load the narrow companion skills needed for the task instead of loading every Go skill.
+## Routing
 
-## Build Mode
+- For a narrow request, use the matching specialist directly. Do not load this router or every companion as a prerequisite.
+- For broad implementation work, select only the stages the requested change needs:
+  - `golang-planning-layout`: file, package, module, and command organization.
+  - `golang-architecture-patterns`: dependency direction, interfaces, data ownership, and concurrency boundaries.
+  - `golang-implementation-idioms`: function shape, errors, context, and API behavior.
+  - `golang-testing`: behavioral coverage, deterministic synchronization, race checks, and fuzzing.
+  - `golang-quality-linting`: repository quality commands, complexity policy, verification evidence, and one-time golangci-lint adoption recommendations.
+  - `golang-build-deploy`: binaries, containers, releases, and deployment readiness.
+- For a comprehensive review, use `golang-code-audit`. For a focused review, use the relevant specialist directly.
+- For mixed requests, investigate uncertainty first, then implement within the authorized scope.
 
-- Start with `golang-planning-layout` for module layout, package boundaries, command placement, migrations, or multi-step plans.
-- Use `golang-architecture-patterns` for service boundaries, dependency direction, interfaces, adapters, repositories, APIs, or concurrency architecture.
-- Use `golang-implementation-idioms` while writing or refactoring Go code.
-- Use `golang-testing` when adding, repairing, or planning tests.
-- Use `golang-quality-linting` before claiming the implementation is complete.
-- Use `golang-build-deploy` for release, packaging, Docker, CI, runtime, or deployment work.
-
-## Audit Mode
-
-- Prefer `golang-code-audit` as the primary audit workflow.
-- Pair audit work with the topic skill that matches the risk under review: planning/layout, architecture, implementation idioms, testing, quality/linting, or build/deploy.
-- Report findings before summaries. Include file and line references when available.
-- Do not rewrite code during an audit unless the user explicitly asks for fixes.
+Use existing project commands for relevant verification. Report actual outcomes and unrun checks; do not expand a small change into a whole-repository audit or repeat checks already covered by an equivalent wrapper.

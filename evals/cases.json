@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "name": "narrow-fix",
+      "prompt": "Review this Go function and propose the smallest fix. Do not edit files or execute project commands. You may read skill guidance. Explain the behavioral change briefly.\n\nfunc First(xs []string) string { if len(xs) == 0 { return xs[0] }; return xs[0] }",
+      "skills": [
+        "golang-implementation-idioms"
+      ],
+      "rubric": "PASS if the answer identifies the empty-slice panic and proposes an empty-input guard while preserving the non-empty result. FAIL for unrelated architecture changes, dependencies, or claiming tests were run."
+    },
+    {
+      "name": "read-only-audit",
+      "prompt": "Audit this Go snippet for correctness. Read-only: do not edit files, format code, or execute project commands. You may read skill guidance. Report concrete findings with severity.\n\nfunc Start(ctx context.Context, out chan<- int) { go func() { for { out <- 1 } }() }",
+      "skills": [
+        "golang-code-audit",
+        "golang-architecture-patterns"
+      ],
+      "rubric": "PASS if it identifies the goroutine's unbounded lifetime and blocking send, recommends a cancellation-aware send/exit and explicit ownership/completion, and preserves the read-only request. FAIL if it claims cancellation is already honored, invents executed tests, or edits/runs formatting."
+    },
+    {
+      "name": "cohesive-large-file",
+      "prompt": "Plan how to handle a handwritten production Go file with 920 physical lines. It contains a cohesive declaration table and three short lookup functions, has no complex control flow, and shares unexported types with its package. No code changes or project commands. You may read skill guidance. Should we split files or create a new package?",
+      "skills": [
+        "golang-planning-layout"
+      ],
+      "rubric": "PASS if length is an advisory navigation/cohesion signal, retaining the file is acceptable, and any navigation-only split stays in the same package. FAIL for a mandatory size gate, one-type-per-file rule, or a new package solely to satisfy a number."
+    },
+    {
+      "name": "nested-function",
+      "prompt": "Suggest a maintainability approach for a 45-line Go function with six nested conditionals and state mutations. Do not edit files or execute project commands. You may read skill guidance. Explain how to review complexity, extract helpers, and preserve behavior; moving it into several files alone won't simplify it.",
+      "skills": [
+        "golang-quality-linting",
+        "golang-implementation-idioms"
+      ],
+      "rubric": "PASS if it distinguishes nesting/cognitive complexity from function/file length, recommends early exits or responsibility-based helpers with explicit state flow, and behavioral regression tests. FAIL if it treats line count as proof of correctness or proposes cosmetic splitting as the solution."
+    },
+    {
+      "name": "existing-lint-debt",
+      "prompt": "We already run gofmt, go vet, tests and pinned Staticcheck. We want to introduce this plugin's complexity guidance into a Go repository with existing violations. Plan adoption only; do not install tools or change files. A PR changes a function body but not the declaration line. How should we prevent regressions and handle justified exceptions? You may read skill guidance.",
+      "skills": [
+        "golang-quality-linting"
+      ],
+      "rubric": "PASS if existing checks are preserved, baseline debt is inventoried, whole touched functions and their before/after metrics are reviewed, changed-line-only filtering is explicitly insufficient, and exceptions name the linter and reason. FAIL for immediate whole-repo refactoring, blanket suppressions, automatic installation, or claiming changed-line filtering catches every regression."
+    },
+    {
+      "name": "cancellation-test",
+      "prompt": "Plan deterministic Go tests for a worker that sends results on a channel, exits when its context is canceled, and may block if the consumer stops reading. Do not edit or execute project commands. You may read skill guidance. The project uses Go 1.27 and only the standard library. Include ownership, completion, and suitable verification.",
+      "skills": [
+        "golang-testing"
+      ],
+      "rubric": "PASS if it uses controlled synchronization or testing/synctest rather than elapsed sleeps, checks blocked-send cancellation and completion, defines channel ownership, and recommends focused race checks. FAIL for timing-dependent sleeps, uncontrolled external services, or adding a mocking dependency."
+    },
+    {
+      "name": "release-plan",
+      "prompt": "Plan a release of an existing Go HTTP service. The repository already has make check and make build, a Dockerfile and shutdown tests. Respect those wrappers. Do not edit files, install anything, push, or deploy. How should we choose toolchain versions and verify readiness? You may read skill guidance.",
+      "skills": [
+        "golang-build-deploy"
+      ],
+      "rubric": "PASS if it preserves wrappers, selects a supported Go release with repeatable pins, plans relevant quality/security/build/smoke checks and shutdown readiness, and reports unrun checks as unrun. FAIL for replacing working tooling, using an unsupported unexplained pin, deploying, or claiming execution."
+    },
+    {
+      "name": "unrelated-request",
+      "prompt": "Translate 'Good morning' into French. Reply with the translation only.",
+      "skills": [],
+      "rubric": "PASS if the final answer is just Bonjour (optional punctuation) and no Golang Development skill was invoked or read. FAIL for Go advice, plugin activation, or extra explanation."
+    },
+    {
+      "name": "explicit-error-contract",
+      "prompt": "Use the golang-implementation-idioms skill to review this exported Go library function. Read-only: no edits or project commands; you may read skill guidance. The API currently returns an opaque error. We propose fmt.Errorf(\"lookup: %w\", driverErr) and logging the same failure inside this function and at the HTTP handler. What compatibility and ownership questions must we resolve?",
+      "skills": [
+        "golang-implementation-idioms"
+      ],
+      "rubric": "PASS if the answer explains that %w exposes driverErr to errors.Is/errors.As and may create an API commitment, preserves the intended opaque contract unless explicitly changed, and logs the failure once at its handling boundary. FAIL for always requiring %w, automatic logging at both layers, claiming executed checks, or editing files."
+    },
+    {
+      "name": "broad-workflow",
+      "prompt": "Plan a coordinated Go feature change: add a per-request deadline to an existing HTTP handler, propagate it through a worker that sends results, preserve error responses, and add regression tests. The repository already has make check. No edits, verification commands, installs, deployment, or delegation. You may read skill guidance. Select the relevant stages and explain how to coordinate the work without expanding scope.",
+      "skills": [
+        "golang-development-workflow"
+      ],
+      "rubric": "PASS if the plan coordinates existing API/error behavior, cancellation-aware worker sends and completion, deterministic tests, and the existing quality wrapper. It must select relevant specialists without requiring every skill or routing in a cycle. FAIL for unnecessary package/module reorganization, mandatory loading of all eight skills, executing project commands, deployment, or claiming checks ran."
+    },
+    {
+      "name": "recommend-missing-lint",
+      "prompt": "Use the golang-quality-linting skill to review our quality setup. We run gofmt, go vet, tests, and pinned Staticcheck. There is no golangci-lint binary, config, wrapper, CI job, or container invocation, and we have never discussed adopting it. Report the gap and a sensible next step. Read-only: you may read skill guidance but do not install tools, edit files, or run project commands.",
+      "skills": [
+        "golang-quality-linting"
+      ],
+      "rubric": "PASS if it explicitly recommends installing/enabling golangci-lint with the bundled recommended configuration adapted to existing checks, briefly explains the benefit, preserves existing gates, and leaves adoption optional without performing installation or edits. FAIL if it merely reports a verification limit without a recommendation, requires adoption to complete the review, or claims checks ran."
+    },
+    {
+      "name": "recommend-unused-lint",
+      "prompt": "Use the golang-quality-linting skill to review our quality setup. A compatible pinned golangci-lint binary is installed, but no config, wrapper, CI job, or container uses it. We already run gofmt, vet, tests, and Staticcheck; there has been no prior adoption discussion. Suggest the next step. Read-only: you may read guidance but do not change files, install anything, or run project commands.",
+      "skills": [
+        "golang-quality-linting"
+      ],
+      "rubric": "PASS if it recommends using the existing binary with the bundled recommended config adapted to current gates, preserves those gates, and treats adoption as optional without reinstalling or performing edits. FAIL if it overlooks the unused tool because it is installed, mandates wholesale tooling replacement, or claims execution."
+    },
+    {
+      "name": "respect-lint-decline",
+      "prompt": "Use the golang-quality-linting skill to review our quality setup. Earlier in this conversation I explicitly declined adding golangci-lint or its recommended config and asked to keep our existing gofmt, go vet, tests, and pinned Staticcheck. We still are not using golangci-lint. Explain how you will proceed. Read-only: you may read guidance, but do not edit files, install anything, or run project commands.",
+      "skills": [
+        "golang-quality-linting"
+      ],
+      "rubric": "PASS if it honors the existing refusal, continues with the current gates, and reports only relevant verification limits without suggesting golangci-lint again, asking for approval again, or requiring adoption. FAIL if it renews the adoption recommendation, pressures the user, installs/configures tools, or claims checks ran."
+    }
+  ]
+}

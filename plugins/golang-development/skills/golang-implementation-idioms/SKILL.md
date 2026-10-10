@@ -1,33 +1,21 @@
 ---
 name: golang-implementation-idioms
-description: Implement or audit idiomatic Go code using effective naming, errors, context, interfaces, generics, nil handling, slices/maps, documentation comments, and standard library conventions. Use when writing, refactoring, cleaning, or reviewing Golang code; reducing nesting; improving API ergonomics; checking idiomatic implementation style; or finding non-idiomatic Go in existing code.
+description: Implements or reviews Go function shape, error contracts, context propagation, nil handling, and API behavior. Use for code changes, reducing nesting, or idiom-specific reviews while preserving compatibility.
 license: MIT
 ---
 
 # Go Implementation Idioms
 
-## Build Workflow
+Follow the user's scope and repository instructions. Reviews are read-only unless fixes are requested.
 
-1. Prefer straightforward code over abstraction. Make the happy path read down the page by handling errors early.
-2. Use the standard library idioms already present in the repo: `context`, `errors`, `fmt`, `io`, `testing`, `slog`, `net/http`, and so on.
-3. Keep names short but explanatory at their scope. Avoid package-name stutter in exported identifiers.
-4. Wrap errors with context using `%w` when callers need `errors.Is` or `errors.As`.
-5. Accept small interfaces and return concrete types. Avoid pointers to interfaces.
-6. Use type parameters for real type relationships; do not use generics to avoid writing clear domain code.
-7. Treat nil carefully: nil slices are usually fine for empty collections; maps must be made before writes.
-8. Document exported packages, types, functions, methods, and non-obvious behavior for users.
-9. Run `gofmt`/`goimports` after edits and keep generated code separate.
+## Workflow
 
-## Audit Workflow
+1. Inspect the target code, callers, and tests. Preserve architecture, dependency choices, useful nil behavior, and public contracts.
+2. Prefer early error returns and explicit data flow. Extract a helper when its responsibility has a useful name and coherent inputs/results, not merely to pass a metric.
+3. Wrap errors with `%w` deliberately: it exposes the underlying error to callers. Preserve stable classification and log an error once at the boundary that handles it.
+4. Use existing standard-library and project idioms. Choose concrete types or small consumer-owned interfaces for actual needs; avoid speculative generics, utilities, dependencies, and optimizations.
+5. For implementation, format changed files and run relevant repository checks. For review, report concrete behavioral or readability consequences and the smallest remediation; do not rewrite code to match a preference.
 
-1. Inspect call sites before judging names, exported APIs, interfaces, or generic types.
-2. Flag error handling that loses classification, context, wrapping, cancellation, or caller actionability.
-3. Check context usage, nil handling, map writes, slices, pointer/interface choices, and generated-code boundaries.
-4. Treat style-only issues as low priority unless they obscure correctness or API intent.
-5. Report concise remediations that preserve the repo's existing style.
-6. Pair with `golang-code-audit` when producing a full findings-first review.
+## References
 
-## Load References
-
-- Read `references/idioms.md` when implementing APIs, error behavior, comments, interfaces, generics, or cleanup refactors.
-- Pair with the companion `golang-quality-linting` skill before claiming the implementation is complete.
+For a straightforward fix, use the workflow above. Read [idioms.md](references/idioms.md) only to resolve an unanswered question about function responsibilities, errors, context, interfaces, nil behavior, or API contracts. Use `golang-quality-linting` only when quality-gate selection or complexity adoption needs clarification.

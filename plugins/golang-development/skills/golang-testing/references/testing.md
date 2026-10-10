@@ -1,6 +1,8 @@
 # Go Testing Reference
 
-Sources distilled: local Uber Go Style Guide test tables, Clean Go TDD, official `testing` package docs, Go fuzzing docs, security best practices, and `cmd/go`.
+Use the repository's existing test tools. Tests should prove observable behavior, not reproduce implementation details.
+
+Read the relevant section: [commands](#commands), [behavioral assertions](#table-tests), [fixtures](#helpers-and-fixtures), [fakes](#fakes-and-mocks), [asynchronous tests](#deterministic-asynchronous-tests), [fuzzing](#fuzz-tests), [benchmarks](#benchmarks), [integration](#integration-tests).
 
 ## Commands
 
@@ -43,6 +45,11 @@ func TestParse(t *testing.T) {
 
 Use `cmp.Diff` if `go-cmp` is already a dependency.
 
+Compare stable values; normalize nondeterministic ordering only when order is
+not part of the contract. Preserve meaningful nil-versus-empty distinctions.
+For refactoring, assert results, side effects, error classification, and cleanup
+rather than helper names or the number of internal calls.
+
 ## Helpers And Fixtures
 
 - Mark helpers with `t.Helper()`.
@@ -56,6 +63,23 @@ Use `cmp.Diff` if `go-cmp` is already a dependency.
 - Prefer hand-written fakes for small interfaces.
 - Keep fake behavior explicit in the test.
 - Do not introduce an interface only to mock a concrete type unless the boundary is useful in production too.
+
+## Deterministic Asynchronous Tests
+
+- Control progress with readiness/completion signals or a fake clock. A timeout
+  may bound a hung test; elapsed sleep is not proof that a worker reached a state.
+- On Go 1.25 or newer, `testing/synctest` can provide fake time and wait for
+  durable blocking for suitable in-process goroutines. Preserve older supported
+  toolchains with explicit synchronization rather than upgrading for this helper.
+- Test cancellation while a send is blocked, when a consumer stops reading, and
+  on early error. Assert worker completion and cleanup; identify channel closure
+  ownership and ensure no producer sends after closure.
+- Use `t.Cleanup` to cancel and wait for test-owned workers. Cancellation alone
+  does not prove they have stopped. Avoid assertions from goroutines that outlive
+  the test and avoid parallel tests mutating shared environment/global state.
+- Run focused race checks for relevant concurrency changes, then the broader
+  repository gate where supported. Passing `-race` covers executed paths only;
+  it does not prove all possible schedules are safe.
 
 ## Fuzz Tests
 
@@ -78,3 +102,6 @@ Use benchmarks to compare known alternatives or guard hot paths. Include allocat
 - https://pkg.go.dev/testing/
 - https://go.dev/doc/security/fuzz/
 - https://pkg.go.dev/cmd/go
+- https://go.dev/wiki/TestComments
+- https://go.dev/blog/testing-time
+- https://pkg.go.dev/testing/synctest

@@ -14,6 +14,11 @@ from typing import Any
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 REFERENCE_PATTERN = re.compile(r"references/[A-Za-z0-9._/-]+")
 EXPECTED_LICENSE = "MIT"
+EXPECTED_SKILLS = {
+    "golang-development-workflow", "golang-code-audit", "golang-planning-layout",
+    "golang-architecture-patterns", "golang-implementation-idioms", "golang-testing",
+    "golang-quality-linting", "golang-build-deploy",
+}
 
 
 def _is_within(path: Path, parent: Path) -> bool:
@@ -249,13 +254,26 @@ def validate_repository(root: Path) -> list[str]:
         errors.append("Plugin skills directory is missing")
         return errors
     skill_directories = sorted(path for path in skills_root.iterdir() if path.is_dir())
-    if not skill_directories:
-        errors.append("Plugin must contain at least one skill")
+    if {path.name for path in skill_directories} != EXPECTED_SKILLS:
+        errors.append("Plugin must contain exactly the eight canonical Go skills")
     for skill_dir in skill_directories:
         if not (skill_dir / "SKILL.md").is_file():
             errors.append(f"{skill_dir.relative_to(root)}: skill directory has no SKILL.md")
             continue
         _validate_skill(skill_dir, plugin_root, errors)
+
+    lint_files = [
+        plugin_root / "golangci.yaml",
+        skills_root / "golang-quality-linting" / "references" / "golangci-recommended.yaml",
+    ]
+    contents = []
+    for path in lint_files:
+        try:
+            contents.append(path.read_bytes())
+        except OSError as error:
+            errors.append(f"{path.relative_to(root)}: cannot read lint configuration: {error}")
+    if len(contents) == 2 and contents[0] != contents[1]:
+        errors.append("Plugin and installable lint configurations must be identical")
 
     return errors
 

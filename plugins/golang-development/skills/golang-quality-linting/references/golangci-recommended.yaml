@@ -1,4 +1,6 @@
 version: "2"
+# Verified with golangci-lint v2.14.0 (built with Go 1.27.0).
+# Recommended starting policy; preserve an existing repository's chosen gates.
 
 run:
   timeout: 5m
@@ -13,6 +15,8 @@ linters:
     - errcheck
     - errorlint
     - exhaustive
+    - funlen
+    - gocognit
     - gocyclo
     - godoclint
     - gosec
@@ -38,6 +42,12 @@ linters:
       check-type-assertions: true
     exhaustive:
       default-signifies-exhaustive: true
+    funlen:
+      lines: 80
+      statements: 50
+      ignore-comments: true
+    gocognit:
+      min-complexity: 20
     gocyclo:
       min-complexity: 15
     govet:
@@ -45,6 +55,10 @@ linters:
       disable:
         - fieldalignment
         - shadow
+    nolintlint:
+      require-specific: true
+      require-explanation: true
+      allow-unused: false
     revive:
       rules:
         - name: blank-imports
@@ -68,6 +82,7 @@ linters:
         - all
         - -ST1000
   exclusions:
+    generated: strict
     presets:
       - common-false-positives
       - legacy
@@ -81,6 +96,8 @@ formatters:
   enable:
     - gofmt
     - goimports
+  exclusions:
+    generated: strict
 
 issues:
   max-issues-per-linter: 0

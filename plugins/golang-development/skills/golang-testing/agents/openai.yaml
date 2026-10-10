@@ -1,4 +1,4 @@
 interface:
   display_name: "Go Testing"
   short_description: "Add or audit Go tests"
-  default_prompt: "Use $golang-testing to add, repair, or audit Go tests for this change."
+  default_prompt: "Use $golang-testing to add focused, deterministic regression tests for this Go behavior."

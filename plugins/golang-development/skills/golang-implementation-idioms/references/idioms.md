@@ -1,6 +1,6 @@
 # Go Implementation Idioms Reference
 
-Sources distilled: Effective Go, Uber Go Style Guide, Clean Go, Idiomatic Go, Go Proverbs, and official Go docs.
+Apply these idioms within the existing repository's conventions and public contracts.
 
 ## Names And Comments
 
@@ -13,7 +13,7 @@ Sources distilled: Effective Go, Uber Go Style Guide, Clean Go, Idiomatic Go, Go
 
 ## Function Shape
 
-Prefer early error handling:
+Prefer early error handling; use `%w` here only when exposing the cause matches the API contract:
 
 ```go
 if err != nil {
@@ -22,6 +22,12 @@ if err != nil {
 ```
 
 Avoid deep nesting and unnecessary `else` after `return`. Keep functions small enough to test and name. Extract helpers when a named step clarifies intent, not just to reduce line count.
+
+Identify the function's responsibilities and state transitions first. Prefer
+coherent inputs/results and explicit mutation over helpers that capture unrelated
+state or merely divide a long function into arbitrary chunks. Preserve error,
+cancellation, ordering, locking, and cleanup behavior; verify observable outcomes
+before and after extraction. A shorter function can still have difficult nesting.
 
 ## Errors
 
@@ -41,6 +47,11 @@ return fmt.Errorf("read user %q: %w", id, err)
 
 - Use `errors.Is` for sentinel/class errors and `errors.As` for typed errors.
 - Do not compare `err.Error()` strings.
+- Wrapping exposes the underlying error as part of your API. Do not expose a
+  database/implementation error accidentally; preserve deliberate sentinel or
+  typed-error contracts and add context without changing caller behavior.
+- Return errors through lower layers; log once at the boundary that handles the
+  failure rather than logging and returning the same error repeatedly.
 
 ## Context
 
@@ -52,14 +63,15 @@ return fmt.Errorf("read user %q: %w", id, err)
 ## Interfaces
 
 - Define interfaces where they are consumed.
-- Accept interfaces, return concrete types.
+- Accept small interfaces when callers need substitution; otherwise prefer concrete types. Return concrete types when that fits the existing API.
 - Keep interfaces small; combine at call sites only when necessary.
 - Avoid `any` unless the API genuinely accepts any value, such as encoding, logging attributes, or generic containers.
 
 ## Slices, Maps, And Boundaries
 
 - Copy slices/maps at API boundaries when mutation by caller/callee would be surprising.
-- Preallocate when size is known or cheaply estimated.
+- Preallocate when size is known and it helps readability or measured performance;
+  do not add speculative optimization merely to satisfy a suggestion.
 - Prefer nil slices for empty results unless JSON/API compatibility requires `[]`.
 - Do not write to a nil map.
 
@@ -72,3 +84,9 @@ return fmt.Errorf("read user %q: %w", id, err)
 ## Generics
 
 Use type parameters when operations are truly independent of concrete domain types and preserve type safety. Prefer ordinary interfaces for behavior and concrete types for domain concepts.
+
+## Sources
+
+- https://go.dev/wiki/CodeReviewComments
+- https://go.dev/blog/go1.13-errors
+- https://go.dev/doc/effective_go

@@ -1,30 +1,23 @@
 ---
 name: golang-quality-linting
-description: Verify, improve, or audit Go code quality with gofmt, goimports, go vet, static analysis, golangci-lint, security checks, code review, lint configuration, and completion verification. Use when reviewing Golang changes, fixing linter failures, setting up golangci-lint, deciding quality gates, auditing existing quality practices, or checking whether Go code is ready to ship.
+description: Verifies Go quality gates and configures lint policy. Use for linter failures, complexity or size checks, incremental lint adoption, suppressions, or verification gaps; preserve existing repository tooling.
 license: MIT
 ---
 
 # Go Quality And Linting
 
-## Build Workflow
+Follow the user's scope and repository instructions. Quality reviews and adoption plans are read-only unless changes are requested. Do not install tools or replace project policy merely because this skill recommends them.
 
-1. Prefer the repo's existing quality commands from `Makefile`, CI, `golangci.yaml`, `golangci.yml`, or task files.
-2. Always format before deeper analysis: `gofmt` and import sorting (`goimports` when available).
-3. Run `go test ./...` and `go vet ./...` unless the repo has a stronger equivalent.
-4. Use `golangci-lint run` when configured or requested. Treat linter suppressions as code review items; require specific `//nolint:<linter> // reason`.
-5. For security-sensitive code, add `govulncheck`, fuzzing, or `gosec` when available and relevant.
-6. When reviewing, lead with correctness, race/leak risk, API breakage, missing tests, and security. Style-only findings come last.
-7. Do not claim success until verification commands have been run and outputs are known.
+## Workflow
 
-## Audit Workflow
+1. Inspect the relevant quality wrapper, CI, and configuration first. Preserve existing formatting, test, vet, and Staticcheck gates; avoid duplicate equivalent checks.
+2. For implementation, format changed handwritten files and run the repository's relevant tests and explicit vet or stronger equivalent. For read-only review, inspect formatting with non-writing commands such as `gofmt -l`.
+3. Run configured/requested lint tools with the repository's pinned version. Missing tools or inaccessible checks are verification limits, not proof of code defects or permission to install.
+   When inspecting a project's quality setup, if golangci-lint is missing or not used, tell the user and recommend installing/enabling it with the bundled recommended configuration, adapted to existing gates. Check wrappers, CI, and container tooling before declaring it absent. Make the recommendation once; honor a prior refusal in the conversation or repository instructions without asking again or pushing adoption unless the user reopens it. Install or change configuration only when authorized.
+4. Treat complexity and function size as reviewable maintainability findings. For existing debt, inventory first and review complete touched functions for new violations or worsening metrics; changed-line filtering alone is incomplete.
+5. Review the reason and scope of suppressions. Flag unjustified, broad, stale, or malformed exceptions; justified exceptions are acceptable. Keep file-size advisories separate from failing lint gates.
+6. Add relevant security, race, or fuzz checks where the task warrants them and tooling/authority permit. Report commands, actual outcomes, unrun checks, and remaining uncertainty.
 
-1. Inspect configured quality commands and CI before recommending new tools.
-2. Check whether format, tests, vet, lint, vulnerability scans, race checks, and generated-code exclusions match the repo's risk profile.
-3. Treat `//nolint` suppressions, unchecked errors, security findings, and missing verification as review findings.
-4. Report commands run, commands not run, and residual risk separately.
-5. Pair with `golang-code-audit` when producing a full findings-first review.
+## References
 
-## Load References
-
-- Read `references/linting.md` when configuring or fixing lint/vet/staticcheck/golangci-lint.
-- Read `references/golangci-recommended.yaml` when creating a new strict but practical golangci-lint config.
+Read [linting.md](references/linting.md) when choosing checks, recommending adoption, reviewing size/complexity, or validating configuration. Point to [golangci-recommended.yaml](references/golangci-recommended.yaml) when recommending adoption; read it when configuration details are needed. Adapt it to project policy rather than replacing existing configuration wholesale.

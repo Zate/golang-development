@@ -48,3 +48,42 @@ jobs:
 
       - name: Validate every Agent Skill
         run: python scripts/validate_skills_ref.py
+
+  lint-policy:
+    name: Verify lint policy with real tooling
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Set up Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version: "1.27.2"
+          cache: false
+
+      - name: Download pinned golangci-lint binary
+        shell: bash
+        env:
+          LINT_TOOLS: ${{ runner.temp }}/lint-tools
+        run: |
+          mkdir -p "$LINT_TOOLS"
+          curl --fail --location --silent --show-error \
+            https://github.com/golangci/golangci-lint/releases/download/v2.14.0/golangci-lint-2.14.0-linux-amd64.tar.gz \
+            --output "$LINT_TOOLS/golangci-lint.tar.gz"
+          python - <<'PY'
+          import hashlib, os, pathlib, tarfile
+          root = pathlib.Path(os.environ['LINT_TOOLS'])
+          archive = root / 'golangci-lint.tar.gz'
+          expected = 'ab90aeb7b066f92a33415b638a50fe5344bbb75a0d32ad30cc248d88f81032ab'
+          actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+          if actual != expected:
+              raise SystemExit(f'Checksum mismatch: {actual}')
+          with tarfile.open(archive) as source:
+              source.extractall(root, filter='data')
+          PY
+
+      - name: Verify configuration and behavioral fixtures
+        run: >-
+          python3 scripts/validate_lint_config.py
+          --lint "${{ runner.temp }}/lint-tools/golangci-lint-2.14.0-linux-amd64/golangci-lint"

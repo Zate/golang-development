@@ -1,4 +1,4 @@
 interface:
   display_name: "Go Architecture Patterns"
   short_description: "Design or audit Go boundaries"
-  default_prompt: "Use $golang-architecture-patterns to design or audit maintainable Go service boundaries and patterns."
+  default_prompt: "Use $golang-architecture-patterns to review ownership, dependencies, and goroutine lifecycle in this Go design."

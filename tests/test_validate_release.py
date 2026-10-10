@@ -114,6 +114,21 @@ class ValidateReleaseTests(unittest.TestCase):
                 "referenced file is missing",
             ),
             (
+                "missing canonical skill",
+                lambda root: shutil.rmtree(root / "plugins/golang-development/skills/golang-testing"),
+                "exactly the eight canonical Go skills",
+            ),
+            (
+                "missing lint config",
+                lambda root: (root / "plugins/golang-development/golangci.yaml").unlink(),
+                "cannot read lint configuration",
+            ),
+            (
+                "lint config drift",
+                lambda root: (root / "plugins/golang-development/golangci.yaml").write_text("version: '2'\n"),
+                "lint configurations must be identical",
+            ),
+            (
                 "incomplete OpenAI metadata",
                 lambda root: self.remove_openai_field(root),
                 "agents/openai.yaml is missing display_name",

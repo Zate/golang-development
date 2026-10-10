@@ -1,6 +1,6 @@
 {
   "name": "golang-development",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Focused Go development skills for building and auditing Go projects across planning, architecture, idioms, testing, linting, release, and deployment.",
   "author": {
     "name": "Golang Development Contributors"
@@ -29,9 +29,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use the Golang Development workflow to build this Go change idiomatically.",
-      "Audit this Go repo against idiomatic architecture, testing, and quality guidance.",
-      "Review this Go diff for correctness, maintainability, and release readiness."
+      "Use $golang-development-workflow to plan and implement this Go change within the requested scope.",
+      "Use $golang-code-audit to audit this Go repository and report concrete findings without editing files.",
+      "Use $golang-code-audit to review this Go diff for correctness and regressions without editing files."
     ],
     "brandColor": "#00ADD8"
   }

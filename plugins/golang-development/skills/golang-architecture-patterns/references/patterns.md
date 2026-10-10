@@ -1,6 +1,8 @@
 # Go Architecture And Pattern Reference
 
-Sources distilled: Effective Go, Uber Go Style Guide, Clean Go, Twelve Go Best Practices, Go Proverbs, and Go blog/articles.
+These are design defaults, not mandatory layers. Follow the repository's policy and the user's scope.
+
+Read the relevant section: [principles](#principles), [boundaries](#boundary-patterns), [services](#service-and-repository-guidance), [file/package cohesion](#file-versus-package-boundaries), [options](#functional-options), [concurrency](#concurrency-patterns), [review risks](#red-flags).
 
 ## Principles
 
@@ -53,6 +55,16 @@ func withErrors(h appHandler) http.HandlerFunc {
 - Keep HTTP handlers thin: parse/validate request, call service, map domain errors to status codes, encode response.
 - Keep domain errors independent of HTTP/gRPC codes.
 
+## File Versus Package Boundaries
+
+For navigation, move cohesive groups into files within the same package. File
+length alone does not justify a new import boundary. A new package needs a
+distinct responsibility, explicit ownership, a useful narrow API, and a clear
+dependency direction. Keep coupled types together if separation would export
+internals or require callers to import both packages to use either. Introduce
+transport/persistence adapters or logging seams only for demonstrated coupling,
+testing, or reuse needs, rather than to satisfy an architectural template.
+
 ## Functional Options
 
 Use functional options when constructors have optional settings with sensible defaults:
@@ -79,11 +91,20 @@ Avoid options for required dependencies. Required values belong in constructor p
 
 - Use `context.Context` for cancellation, deadlines, and request-scoped values.
 - Always define goroutine lifetime and shutdown path.
+- Identify who starts each goroutine, cancels it, and waits for completion.
+- Define shared-state ownership and which sender closes each channel; consumers
+  must not close a channel while producers may still send.
 - Avoid fire-and-forget goroutines.
 - Use `sync.Mutex` for protecting shared memory; use channels for coordination and ownership transfer.
 - Use buffered result channels or cancellation selects when early returns could strand senders.
+- Buffering is sufficient only when it bounds all outstanding sends. Make
+  potentially blocking sends/receives cancellation-aware and prove shutdown with
+  completion signals, not sleeps. Do not hold a shared-state lock while waiting
+  for a worker that may need that lock.
 
 ## Red Flags
+
+Investigate these in context; their presence alone is not a defect.
 
 - Interfaces defined next to implementations instead of consumers.
 - Public structs embedding implementation types unintentionally.
@@ -92,3 +113,10 @@ Avoid options for required dependencies. Required values belong in constructor p
 - `init` doing work that could be explicit setup.
 - Generic `interface{}`/`any` where type parameters or concrete types fit.
 - Pattern folders added before the repo needs them.
+
+## Sources
+
+- https://go.dev/wiki/CodeReviewComments#interfaces
+- https://go.dev/wiki/CodeReviewComments#goroutine-lifetimes
+- https://google.github.io/styleguide/go/best-practices#package-size
+- https://go.dev/blog/package-names
